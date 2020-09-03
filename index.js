@@ -20,7 +20,7 @@ function renderBook() {
   state.book.forEach(function (book, index) {
     bookStr += `<div>
     ${book.title} with a page count of ${book.page}.
-    <span date-index="${index}" onclick="updateBook(this)">UPDATE</span>
+    <span data-index="${index}" onclick="updateBook(this)">UPDATE</span>
     <span onclick="deleteBook(${index})">DELETE</span>
     </div>`;
   });
@@ -40,6 +40,7 @@ function addBook() {
 
   render();
 }
+
 function updateBook(bookDiv) {
   let index = bookDiv.dataset.index;
   let book = state.book[index];

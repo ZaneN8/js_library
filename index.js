@@ -5,6 +5,11 @@ let book = [
   { title: "The Mist", page: "176" },
 ];
 
+// let book1 = { title: "Moby Dick", page: "585" };
+// let book2 = { title: "The Hobbit", page: "310" };
+// let book3 = { title: "The Dark Tower", page: "300" };
+// let book4 = { title: "The Mist", page: "176" };
+
 let state = {
   pageHeader: "The Library",
   book: book,
@@ -15,6 +20,8 @@ function renderBook() {
   state.book.forEach(function (book, index) {
     bookStr += `<div>
     ${book.title} with a page count of ${book.page}.
+    <span date-index="${index}" onclick="updateBook(this)">UPDATE</span>
+    <span onclick="deleteBook(${index})">DELETE</span>
     </div>`;
   });
   return bookStr;
@@ -33,10 +40,11 @@ function addBook() {
 
   render();
 }
-function updateBook(bookUpdate) {
-  let index = bookUpdate.dataset.index;
+function updateBook(bookDiv) {
+  let index = bookDiv.dataset.index;
   let book = state.book[index];
-
+  console.log(index);
+  console.log(book);
   let title = prompt("Edit Title");
   book.title = title;
 
@@ -46,7 +54,14 @@ function updateBook(bookUpdate) {
   render();
 }
 
-function deleteBook() {}
+function deleteBook(clickedIndex) {
+  let removeBook = state.book.filter(function (book, index) {
+    console.log(clickedIndex);
+    return clickedIndex != index;
+  });
+  state.book = removeBook;
+  render();
+}
 
 function render() {
   htmlString = `<div>
